@@ -1,7 +1,7 @@
 import os
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, PicklePersistence, CallbackQueryHandler
 
-ACCESS_TOKEN = '1662109088:AAE0QtQTQNBnzgWMueHwnKtZ6w8STAlMkK8'
+ACCESS_TOKEN = ''
 
 
 def start(update, context):
