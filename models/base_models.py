@@ -6,6 +6,9 @@ class Embedder(ABC):
     def embedding(self, text: str):
         pass
 
+    def transform(self, texts: list):
+        pass
+
 
 class Index(ABC):
     @abstractmethod
