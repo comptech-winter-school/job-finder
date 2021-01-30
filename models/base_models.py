@@ -12,7 +12,7 @@ class Embedder(ABC):
 
 class Index(ABC):
     @abstractmethod
-    def build(self, texts: str):
+    def build(self, texts: list):
         pass
 
     @abstractmethod
@@ -21,6 +21,10 @@ class Index(ABC):
 
     @abstractmethod
     def load(self, file_path: str):
+        pass
+
+    @abstractmethod
+    def get_top_k(self, text, k):
         pass
 
 

@@ -1,10 +1,14 @@
 import os
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, PicklePersistence, CallbackQueryHandler
+import logging
+
+logger = logging.getLogger()
 
 ACCESS_TOKEN = os.environ['JOB_FINDER_TOKEN']
 
 
 def start(update, context):
+    logger.info('start function called')
     return "Hello"
 
 
