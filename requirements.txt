@@ -1,10 +1,13 @@
 appnope==0.1.2
+APScheduler==3.6.3
 argon2-cffi==20.1.0
 async-generator==1.10
 attrs==20.3.0
 backcall==0.2.0
 bleach==3.2.3
+certifi==2020.12.5
 cffi==1.14.4
+cryptography==3.3.1
 decorator==4.4.2
 defusedxml==0.6.0
 entrypoints==0.3
@@ -44,6 +47,7 @@ Pygments==2.7.4
 pyparsing==2.4.7
 pyrsistent==0.17.3
 python-dateutil==2.8.1
+python-telegram-bot==13.1
 pytz==2020.5
 pyzmq==22.0.2
 qtconsole==5.0.2
@@ -55,9 +59,9 @@ testpath==0.4.4
 tornado==6.1
 traitlets==5.0.5
 typing-extensions==3.7.4.3
+tzlocal==2.1
 wcwidth==0.2.5
 webencodings==0.5.1
 wget==3.2
 widgetsnbextension==3.5.1
 zipp==3.4.0
-

@@ -3,18 +3,21 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Pickl
 
 ACCESS_TOKEN = os.environ['JOB_FINDER_TOKEN']
 
+
 def start(update, context):
     return "Hello"
 
+
 def reply(update, context):
     return "not implemented yet"
+
 
 def main():
     pass
 
 
 if __name__ == '__main__':
-    updater = Updater(token=TOKEN, use_context=True)
+    updater = Updater(token=ACCESS_TOKEN, use_context=True)
     dispatcher = updater.dispatcher
 
     dispatcher.add_handler(CommandHandler('start', start))
