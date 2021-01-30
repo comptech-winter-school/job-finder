@@ -65,3 +65,4 @@ webencodings==0.5.1
 wget==3.2
 widgetsnbextension==3.5.1
 zipp==3.4.0
+sklearn
