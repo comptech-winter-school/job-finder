@@ -1,15 +1,17 @@
 import os
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, PicklePersistence, CallbackQueryHandler
 
-ACCESS_TOKEN = os.environ['JOB_FINDER_TOKEN']
+ACCESS_TOKEN = '1662109088:AAE0QtQTQNBnzgWMueHwnKtZ6w8STAlMkK8'
 
 
 def start(update, context):
-    return "Hello"
+    updater.bot.sendMessage(chat_id=update.message.chat_id, text='Здравствуйте')
+
+
 
 
 def reply(update, context):
-    return "not implemented yet"
+    updater.bot.sendMessage(chat_id=update.message.chat_id, text='test')
 
 
 def main():
