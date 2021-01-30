@@ -1,0 +1,8 @@
+.mypy_cache
+.idea
+__*
+data
+cache
+logs
+persistence.pickle
+*.ipynb_checkpoints
