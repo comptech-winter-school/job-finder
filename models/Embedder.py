@@ -39,7 +39,29 @@ class TfidfEmbedder(Embedder):
         return self.vectorizer.transform([text])
 
     def save(self, output_path: str):
-        pass
+        pickle.dump(self.transformed_data , open(output_path + "vectorizer.pickle", "wb"))
 
     def load(self, input_path: str):
-        pass
+        pickle.dump(self.transformed_data , open(output_path + "vectorizer.pickle", "wb"))
+        
+        
+        
+#SBERT_Embedder
+from sentence_transformers import SentenceTransformer
+
+class SBERTEmbedder(Embedder):
+    def __init__(self):
+        self.vectorizer = SentenceTransformer('paraphrase-distilroberta-base-v1')
+        self.transformed_data = None
+
+    def transform(self, text: str):
+        self.transformed_data = self.vectorizer.encode([text])
+        return self.vectorizer.encode([text])
+
+    def save(self, output_path: str):
+        pickle.dump(self.transformed_data, open(output_path + "vectorizer.pickle", "wb"))
+
+    def load(self, input_path: str):
+        pickle.dump(self.transformed_data, open(output_path + "vectorizer.pickle", "wb"))
+
+        
