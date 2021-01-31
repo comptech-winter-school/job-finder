@@ -33,3 +33,8 @@ class Validator(ABC):
     def get_score(self, true_values, pred_values):
         pass
 
+
+class TextDao(ABC):
+    @abstractmethod
+    def get_texts_by_inds(self, inds: list):
+        pass
