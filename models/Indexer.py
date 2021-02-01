@@ -1,42 +1,79 @@
 from models.base_models import Embedder, Index
 import numpy as np
 import faiss
+from sklearn.metrics import pairwise_distances
+
+
+class BaselineIndexer(Index):
+    def __init__(self, embedder: Embedder, metric = 'cosine'):
+        """
+          metric: as in sklearn.metrics
+        """
+        self.embedder = embedder
+        self.metric = metric
+        self.indexer = None
+
+    def build(self, texts: list):
+        self.indexer = self.embedder.transform(texts)
+
+    def get_nearest_k(self, text: str, k=3, isDistance=False):
+        emb = self.embedder.embedding(text)
+        distances = pairwise_distances(emb, self.indexer, metric=self.metric)
+        top_k_arguments = np.argsort(np.array(distances))[0][:k]
+        if isDistance:
+            return distances[:, top_k_arguments], top_k_arguments
+        else:
+            return top_k_arguments
+
+    def save(self, file_path: str):
+        pass
+
+    def load(self, file_path: str):
+        pass
 
 
 class FaissIndexer(Index):
     """
-      Косинусного расстояния нет, но можно через скалярное произведение.
-      Для этого нужно нормировать эмбеддинги (сохраним в norm_embs)
+      Faiss uses only 32-bit floating point matrices (unsupport sparse)
+      metric: cosine or L2
     """
-    def __init__(self, embedder: Embedder):
+    def __init__(self, embedder: Embedder, metric='cosine'):
         self.embedder = embedder
-        self.texts = None
-        self.norm_embs = None
+        self.metric = metric
+        #self.texts = None
         self.indexer = None
 
     def build(self, texts: list):
         """
-          Расчет индексов в self.indexer, сохранение нормир эмбеддингов
+            shoud normalize for cosine similarity
         """
-        self.texts = texts
-        embs = self.embedder.transform(texts)
+        #self.texts = texts
+        embs = self.embedder.transform(texts).astype('float32')
         features_dim = embs.shape[1]
-        self.indexer = faiss.index_factory(features_dim, "Flat", faiss.METRIC_INNER_PRODUCT)
-        self.indexer.ntotal
-        faiss.normalize_L2(embs)
-        self.norm_embs = embs.copy()
+        if self.metric == 'cosine':
+            self.indexer = faiss.index_factory(features_dim, "Flat", faiss.METRIC_INNER_PRODUCT)
+            faiss.normalize_L2(embs)
+        elif self.metric == 'l2':
+            self.indexer = faiss.IndexFlatL2(features_dim)
+        else:
+            print('Metric not found')
         self.indexer.add(embs)
 
-    def get_nearest_k(self, text: str, k):
+    def get_nearest_k(self, text: str, k=3, isDistance=False):
         """
-          k ближайших индексов
+          return topk indices : list or turple (distances, indeces)
         """
-        emb = self.embedder.embedding(text)
-        faiss.normalize_L2(emb)
-        distance, index = self.indexer.search(emb, k)
-        index = index[index >= 0] # если не найдены, то -1
-        #return self.texts[index]
-        return index
+        k = min(k, self.indexer.ntotal)
+        emb = self.embedder.embedding(text).astype('float32')
+        if self.metric == 'cosine':
+            faiss.normalize_L2(emb)
+        distances, indexs = self.indexer.search(emb, k)
+        indexs = indexs
+        if isDistance:
+            return 1-distances, indexs
+        else:
+            #return self.texts[index]
+            return indexs
 
     def save(self, file_path: str):
         try:
