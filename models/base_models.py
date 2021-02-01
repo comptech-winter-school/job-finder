@@ -12,7 +12,7 @@ class Embedder(ABC):
 
 class Index(ABC):
     @abstractmethod
-    def build(self, texts: str):
+    def build(self, texts: list):
         pass
 
     @abstractmethod
@@ -23,9 +23,18 @@ class Index(ABC):
     def load(self, file_path: str):
         pass
 
+    @abstractmethod
+    def get_nearest_k(self, text: str, k):
+        pass
+
 
 class Validator(ABC):
     @abstractmethod
     def get_score(self, true_values, pred_values):
         pass
 
+
+class TextDao(ABC):
+    @abstractmethod
+    def get_texts_by_inds(self, inds: list):
+        pass
