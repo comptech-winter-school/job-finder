@@ -1,5 +1,9 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 from abc import ABC, abstractmethod
+from nltk.corpus import stopwords
+
+stoplist = stopwords.words("russian")
+
 
 class Embedder(ABC):
     @abstractmethod
@@ -27,9 +31,9 @@ class TfidfEmbedder(Embedder):
     def __init__(self, max_features: int = 10000):
         self.vectorizer = TfidfVectorizer(max_features=max_features,
                                     lowercase=True,
-                                    stop_words='english')
+                                    stop_words=stoplist)
 
-    def embedding(self, text: str) -> str:
+    def embedding(self, text: str):
         return self.vectorizer.transform([text])
 
     def fit(self, texts):
@@ -39,29 +43,10 @@ class TfidfEmbedder(Embedder):
         return self.vectorizer.transform([text])
 
     def save(self, output_path: str):
-        pickle.dump(self.transformed_data , open(output_path + "vectorizer.pickle", "wb"))
+        pickle.dump(self.vectorizer , open(output_path + "vectorizer.pickle", "wb"))
 
     def load(self, input_path: str):
-        pickle.dump(self.transformed_data , open(output_path + "vectorizer.pickle", "wb"))
+        self.vectorizer = pickle.load(open(input_path + "vectorizer.pickle", "rb"))
         
         
-        
-#SBERT_Embedder
-from sentence_transformers import SentenceTransformer
-
-class SBERTEmbedder(Embedder):
-    def __init__(self):
-        self.vectorizer = SentenceTransformer('paraphrase-distilroberta-base-v1')
-        self.transformed_data = None
-
-    def transform(self, text: str):
-        self.transformed_data = self.vectorizer.encode([text])
-        return self.vectorizer.encode([text])
-
-    def save(self, output_path: str):
-        pickle.dump(self.transformed_data, open(output_path + "vectorizer.pickle", "wb"))
-
-    def load(self, input_path: str):
-        pickle.dump(self.transformed_data, open(output_path + "vectorizer.pickle", "wb"))
-
-        
+       
