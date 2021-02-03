@@ -34,11 +34,13 @@ def make_decision(update, context):
 
 def get_k_items(update, context):
     global STATE
-    if STATE == 1:
-        indexer = FaissIndexer(RandomEmbedder())
-        indexer.build(pd.read_csv('ods_jobs.csv').text.values.tolist())
-        context.bot.sendMessage(chat_id=update.message.chat_id,
-                                text=str(indexer.get_nearest_k(update.message.text)))
+    if STATE:
+        jobs = get_answer(update.message.text)
+        for elem in jobs:
+            context.bot.sendMessage(chat_id=update.message.chat_id,
+                                    text=elem)
+            time.sleep(2)
+        STATE = 0
     else:
         pass
-  
+
