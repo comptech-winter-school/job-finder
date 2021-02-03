@@ -1,8 +1,8 @@
-from model.base_models import Embedder
+from models.base_models import Embedder
 from sklearn.feature_extraction.text import TfidfVectorizer
 from abc import ABC, abstractmethod
 from nltk.corpus import stopwords
-
+import pickle
 stoplist = stopwords.words("russian")
 
 
@@ -26,6 +26,3 @@ class TfidfEmbedder(Embedder):
 
     def load(self, input_path: str):
         self.vectorizer = pickle.load(open(input_path + "/" + "vectorizer.pickle", "rb"))
-        
-        
-       
