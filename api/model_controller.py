@@ -1,9 +1,9 @@
 import pandas as pd
 from models.Indexer import BaselineIndexer
-from models.Embedder import RandomEmbedder
+from models.Embedder import TfidfEmbedder
 
-df = pd.read_csv('ods_jobs.csv').text
-indexer = BaselineIndexer(RandomEmbedder())
+df = pd.read_csv('ods_jobs.csv').text.fillna('')
+indexer = BaselineIndexer(TfidfEmbedder())
 indexer.build(df.values.tolist())
 
 

@@ -14,6 +14,7 @@ class BaselineIndexer(Index):
         self.indexer = None
 
     def build(self, texts: list):
+        self.embedder.fit(texts)
         self.indexer = self.embedder.transform(texts)
 
     def get_nearest_k(self, text: str, k=3, isDistance=False):
@@ -30,7 +31,6 @@ class BaselineIndexer(Index):
 
     def load(self, file_path: str):
         pass
-
 
 class FaissIndexer(Index):
     """
