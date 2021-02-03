@@ -31,7 +31,7 @@ def preproc(text: str):
     punct = '[!"#$%&()*\+,\.:;<=>`{|}~„“«»†*‘’•·]'
     clean_text = re.sub(punct, r'', clean_text)
     clean_text = re.sub(r'\s+', ' ', clean_text)
-    return clean_text
+    return clean_text if clean_text else text
 
 
 class RandomEmbedder(Embedder):
@@ -79,13 +79,14 @@ class TfidfEmbedder(Embedder):
                                     stop_words=stoplist)
 
     def embedding(self, text):
+        text = preproc(text)
         return self.vectorizer.transform([text])
 
     def fit(self, texts):
-        self.vectorizer.fit(texts)
+        self.vectorizer.fit([preproc(text) for text in texts])
 
-    def transform(self, text: list):
-        return self.vectorizer.transform([text])
+    def transform(self, texts):
+        return self.vectorizer.transform([preproc(text) for text in texts])
 
     def save(self, output_path: str):
         if output_path[-9:] != '.embedder':

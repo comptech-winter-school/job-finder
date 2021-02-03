@@ -40,14 +40,12 @@ class FaissIndexer(Index):
     def __init__(self, embedder: Embedder, metric='cosine'):
         self.embedder = embedder
         self.metric = metric
-        #self.texts = None
         self.indexer = None
 
     def build(self, texts: list):
         """
             shoud normalize for cosine similarity
         """
-        #self.texts = texts
         embs = self.embedder.transform(texts).astype('float32')
         features_dim = embs.shape[1]
         if self.metric == 'cosine':
@@ -70,9 +68,8 @@ class FaissIndexer(Index):
         distances, indexs = self.indexer.search(emb, k)
         indexs = indexs
         if isDistance:
-            return 1-distances, indexs
+            return 1 - distances, indexs
         else:
-            #return self.texts[index]
             return indexs
 
     def save(self, file_path: str):
