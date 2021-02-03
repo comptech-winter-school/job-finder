@@ -20,11 +20,10 @@ def start(update, context):
 
 
 def enter_the_text(update, context):
+    global STATE
     context.bot.sendMessage(chat_id=update.message.chat_id, text='Введите текст')
-    logger.debug(update.message)
+    logger.debug(update.message.text)
     STATE = 1
-
-
 
 
 def make_decision(update, context):
@@ -32,12 +31,14 @@ def make_decision(update, context):
     keyboard = ReplyKeyboardMarkup([[KeyboardButton(text='Вакансия'), KeyboardButton(text='Резюме')]],
                                    resize_keyboard=True)
     context.bot.sendMessage(chat_id=update.message.chat_id, reply_markup=keyboard, text='Ваш выбор?')
+
+
 def get_k_items(update, context):
     global STATE
     if STATE == 1:
+        indexer = FaissIndexer(RandomEmbedder())
+        indexer.build(update.message.text.split(' '))
         context.bot.sendMessage(chat_id=update.message.chat_id,
-                                text=BaselineIndexer(RandomEmbedder).get_nearest_k(update.message.text))
-        STATE = 0
+                                text=str(indexer.get_nearest_k(update.message.text)))
     else:
         pass
-

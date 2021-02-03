@@ -2,7 +2,7 @@ import os
 import sys
 import logging
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, PicklePersistence, CallbackQueryHandler
-from api import start, enter_the_text
+from api import start, enter_the_text, get_k_items
 
 
 
@@ -13,5 +13,6 @@ if __name__ == '__main__':
     dispatcher.add_handler(CommandHandler('start', start))
     dispatcher.add_handler(CommandHandler('info', start))
     dispatcher.add_handler(MessageHandler(Filters.text('Вакансия'), enter_the_text))
+    dispatcher.add_handler(MessageHandler(Filters.text,get_k_items))
     # dispatcher.add_handler(CommandHandler('get', ))
     updater.start_polling()
