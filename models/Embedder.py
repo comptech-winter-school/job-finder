@@ -1,5 +1,5 @@
 
-from models.base_models import Embedder
+from .base_models import Embedder
 import numpy as np
 
 class RandomEmbedder(Embedder):
