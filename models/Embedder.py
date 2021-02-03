@@ -1,5 +1,5 @@
 
-from .base_models import Embedder
+from models.base_models import Embedder
 import numpy as np
 
 class RandomEmbedder(Embedder):
@@ -8,6 +8,7 @@ class RandomEmbedder(Embedder):
         self.query = None
 
     def embedding(self, text: str = 'pass'):
+        print(text)
         if text == 'a':
             query = self.embs[0].reshape((1,-1))
         elif text == 'b':
@@ -27,4 +28,4 @@ class RandomEmbedder(Embedder):
                               [0.15494525, 0.22613995],
                               [0.22196722, 0.88154772],
                               [0.07235152, 0.24377389]]).astype('float32')
-        return self.embs
+        return self.embsn self.embs
