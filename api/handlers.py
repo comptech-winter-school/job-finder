@@ -2,7 +2,7 @@ import logging
 import sys
 import time
 from telegram import ReplyKeyboardMarkup, KeyboardButton
-from job_finder.api.model_controller import get_answer
+from api.model_controller import get_answer
 
 logger = logging.getLogger()
 logger.level = logging.DEBUG

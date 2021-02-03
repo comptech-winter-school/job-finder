@@ -1,6 +1,6 @@
 import pandas as pd
-from job_finder.models.Indexer import BaselineIndexer
-from job_finder.models.Embedder import RandomEmbedder
+from models.Indexer import BaselineIndexer
+from models.Embedder import RandomEmbedder
 
 df = pd.read_csv('ods_jobs.csv').text
 indexer = BaselineIndexer(RandomEmbedder())
