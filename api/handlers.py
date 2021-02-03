@@ -32,13 +32,13 @@ def make_decision(update, context):
                                    resize_keyboard=True)
     context.bot.sendMessage(chat_id=update.message.chat_id, reply_markup=keyboard, text='Ваш выбор?')
 
-
 def get_k_items(update, context):
     global STATE
     if STATE == 1:
         indexer = FaissIndexer(RandomEmbedder())
-        indexer.build(update.message.text.split(' '))
+        indexer.build(pd.read_csv('ods_jobs.csv').text.values.tolist())
         context.bot.sendMessage(chat_id=update.message.chat_id,
                                 text=str(indexer.get_nearest_k(update.message.text)))
     else:
         pass
+  
