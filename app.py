@@ -2,7 +2,7 @@ import os
 import sys
 import logging
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, PicklePersistence, CallbackQueryHandler
-from api import start, enter_the_text, get_k_items
+from api.handlers import start, enter_the_text, get_k_items
 
 if __name__ == '__main__':
     ACCESS_TOKEN = os.environ['TOKEN']

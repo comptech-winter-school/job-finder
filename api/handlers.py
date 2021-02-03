@@ -1,11 +1,8 @@
 import logging
 import sys
 import time
-from models import BaselineIndexer, FaissIndexer
 from telegram import ReplyKeyboardMarkup, KeyboardButton
-from models import RandomEmbedder
-import pandas as pd
-from .model_controller import get_answer
+from job_finder.api.model_controller import get_answer
 
 logger = logging.getLogger()
 logger.level = logging.DEBUG
