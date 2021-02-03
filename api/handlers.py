@@ -1,12 +1,15 @@
 import logging
 import sys
+import time
 from models import BaselineIndexer, FaissIndexer
+from telegram import ReplyKeyboardMarkup, KeyboardButton
 from models import RandomEmbedder
+import pandas as pd
+from .model_controller import get_answer
 
 logger = logging.getLogger()
 logger.level = logging.DEBUG
 logger.addHandler(logging.StreamHandler(sys.stderr))
-STATE = 0
 
 
 # start -> make_decision -> enter_the_text -> indexing
@@ -17,6 +20,7 @@ def start(update, context):
                                  'Для выбора режима работы нажмите вакансия или резюме')
     make_decision(update, context)
     logger.debug(update.message)
+    STATE = 0
 
 
 def enter_the_text(update, context):
@@ -27,10 +31,10 @@ def enter_the_text(update, context):
 
 
 def make_decision(update, context):
-    from telegram import ReplyKeyboardMarkup, KeyboardButton
     keyboard = ReplyKeyboardMarkup([[KeyboardButton(text='Вакансия'), KeyboardButton(text='Резюме')]],
                                    resize_keyboard=True)
     context.bot.sendMessage(chat_id=update.message.chat_id, reply_markup=keyboard, text='Ваш выбор?')
+
 
 def get_k_items(update, context):
     global STATE
@@ -43,4 +47,3 @@ def get_k_items(update, context):
         STATE = 0
     else:
         pass
-
