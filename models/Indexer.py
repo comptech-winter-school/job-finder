@@ -76,6 +76,8 @@ class FaissIndexer(Index):
             return indexs
 
     def save(self, file_path: str):
+        if file_path[-8:] != '.indexer':
+            file_path += '.indexer'
         try:
             faiss.write_index(self.indexer, file_path)
         except IOError as e:
@@ -84,6 +86,8 @@ class FaissIndexer(Index):
             print("Unexpected error")
 
     def load(self, file_path: str):
+        if file_path[-8:] != '.indexer':
+            file_path += '.indexer'
         try:
             self.indexer = faiss.read_index(file_path)
         except IOError as e:
