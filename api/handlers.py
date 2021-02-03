@@ -6,6 +6,7 @@ from models import RandomEmbedder
 logger = logging.getLogger()
 logger.level = logging.DEBUG
 logger.addHandler(logging.StreamHandler(sys.stderr))
+STATE = 0
 
 
 # start -> make_decision -> enter_the_text -> indexing
@@ -19,15 +20,11 @@ def start(update, context):
 
 
 def enter_the_text(update, context):
-    context.bot.sendMessage(chat_id=update.message.chat_id, text='Сделайте выбор')
-    indexing(update, context)
+    context.bot.sendMessage(chat_id=update.message.chat_id, text='Введите текст')
     logger.debug(update.message)
+    STATE = 1
 
 
-def indexing(update, context):
-    context.bot.sendMessage(chat_id=update.message.chat_id,
-                            text=BaselineIndexer(RandomEmbedder).get_nearest_k(update.message.text))
-    logger.debug(update.message)
 
 
 def make_decision(update, context):
@@ -35,3 +32,12 @@ def make_decision(update, context):
     keyboard = ReplyKeyboardMarkup([[KeyboardButton(text='Вакансия'), KeyboardButton(text='Резюме')]],
                                    resize_keyboard=True)
     context.bot.sendMessage(chat_id=update.message.chat_id, reply_markup=keyboard, text='Ваш выбор?')
+def get_k_items(update, context):
+    global STATE
+    if STATE == 1:
+        context.bot.sendMessage(chat_id=update.message.chat_id,
+                                text=BaselineIndexer(RandomEmbedder).get_nearest_k(update.message.text))
+        STATE = 0
+    else:
+        pass
+
