@@ -22,10 +22,10 @@ class TfidfEmbedder(Embedder):
         return self.vectorizer.transform([text])
 
     def save(self, output_path: str):
-        pickle.dump(self.vectorizer , open(output_path + "vectorizer.pickle", "wb"))
+        pickle.dump(self.vectorizer , open(output_path + "/" + "vectorizer.pickle", "wb"))
 
     def load(self, input_path: str):
-        self.vectorizer = pickle.load(open(input_path + "vectorizer.pickle", "rb"))
+        self.vectorizer = pickle.load(open(input_path + "/" + "vectorizer.pickle", "rb"))
         
         
        
