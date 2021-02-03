@@ -1,6 +1,6 @@
-
 from models.base_models import Embedder
 import numpy as np
+
 
 class RandomEmbedder(Embedder):
     def __init__(self):
@@ -10,11 +10,11 @@ class RandomEmbedder(Embedder):
     def embedding(self, text: str = 'pass'):
         print(text)
         if text == 'a':
-            query = self.embs[0].reshape((1,-1))
+            query = self.embs[0].reshape((1, -1))
         elif text == 'b':
-            query = 10 * self.embs[-1].reshape((1,-1))
+            query = 10 * self.embs[-1].reshape((1, -1))
         else:
-            query = 0.5*(self.embs[0] + self.embs[-1]).reshape((1,-1))
+            query = 0.5 * (self.embs[0] + self.embs[-1]).reshape((1, -1))
         self.query = query
         return self.query
 
@@ -28,4 +28,13 @@ class RandomEmbedder(Embedder):
                               [0.15494525, 0.22613995],
                               [0.22196722, 0.88154772],
                               [0.07235152, 0.24377389]]).astype('float32')
-        return self.embsn self.embs
+        return self.embs
+
+    def load(self):
+        pass
+
+    def save(self):
+        pass
+
+    def fit(self):
+        pass
