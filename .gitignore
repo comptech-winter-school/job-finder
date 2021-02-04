@@ -7,4 +7,4 @@ logs
 persistence.pickle
 ods_jobs.csv
 *.ipynb_checkpoints
-ods_jobs.csv
+venv
