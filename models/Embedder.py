@@ -5,6 +5,24 @@ from nltk.corpus import stopwords
 
 stoplist = stopwords.words("russian")
 
+def preproc(text: str):
+    pattern_html = r'<.*?>' 
+    pattern_smile = r':\w+?-?\w+:'
+    pattern_contact = r'\S*@\S+'
+    pattern_nt = r'[\n\t\r*]'
+    pattern_phone = r'(?:\d{9,11})?(?:\d *\(*\d{3}\)* *\d{3} *\d{2} *\d{2})?(?:\d\-*\d{3}\-*\d{3}\-*\d{2}\-*\d{2})?'
+    clean_text = unicodedata.normalize("NFKD", str(text))
+    clean_text = re.sub(pattern_html, r'', clean_text)
+    clean_text = re.sub(pattern_smile, r'', clean_text)
+    clean_text = re.sub(pattern_contact, r'', clean_text)
+    clean_text = re.sub(pattern_nt, r' ', clean_text)
+    clean_text = re.sub(pattern_phone, r'', clean_text)
+    punct = '[!"#$%&()*\+,\.:;<=>`{|}~„“«»†*‘’•·]'
+    clean_text = re.sub(punct, r'', clean_text)
+    clean_text = re.sub(r'\s+', ' ', clean_text)
+    return clean_text
+    return clean_text if clean_text else text
+
 
 class TfidfEmbedder(Embedder):
     def __init__(self, max_features: int = 10000):
