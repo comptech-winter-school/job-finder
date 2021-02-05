@@ -5,4 +5,7 @@ data
 cache
 logs
 persistence.pickle
+ods_jobs.csv
 *.ipynb_checkpoints
+venv
+BOX.log

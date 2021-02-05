@@ -1,6 +1,6 @@
 from sklearn.feature_extraction.text import CountVectorizer
 
-from models.base_models import Embedder
+from job_finder.models.base_models import Embedder
 
 
 class CountVectModel(Embedder):
