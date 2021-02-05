@@ -1,6 +1,6 @@
 from models.base_models import Embedder, Index
 import numpy as np
-#import faiss
+import faiss
 from sklearn.metrics import pairwise_distances
 
 
