@@ -3,3 +3,22 @@
 None
 None
 None
+{'message_id': 1116, 'date': 1612530875, 'chat': {'id': 464137258, 'type': 'private', 'username': 'Gesterezi', 'first_name': 'Никита', 'last_name': 'Кузнецов'}, 'text': 'dsf', 'entities': [], 'caption_entities': [], 'photo': [], 'new_chat_members': [], 'new_chat_photo': [], 'delete_chat_photo': False, 'group_chat_created': False, 'supergroup_chat_created': False, 'channel_chat_created': False, 'from': {'id': 464137258, 'first_name': 'Никита', 'is_bot': False, 'last_name': 'Кузнецов', 'username': 'Gesterezi', 'language_code': 'ru'}}
+None
+None
+{'message_id': 1120, 'date': 1612530948, 'chat': {'id': 464137258, 'type': 'private', 'username': 'Gesterezi', 'first_name': 'Никита', 'last_name': 'Кузнецов'}, 'text': 'sdfsdf', 'entities': [], 'caption_entities': [], 'photo': [], 'new_chat_members': [], 'new_chat_photo': [], 'delete_chat_photo': False, 'group_chat_created': False, 'supergroup_chat_created': False, 'channel_chat_created': False, 'from': {'id': 464137258, 'first_name': 'Никита', 'is_bot': False, 'last_name': 'Кузнецов', 'username': 'Gesterezi', 'language_code': 'ru'}}
+None
+None
+None
+{'message_id': 1124, 'date': 1612533243, 'chat': {'id': 464137258, 'type': 'private', 'username': 'Gesterezi', 'first_name': 'Никита', 'last_name': 'Кузнецов'}, 'text': 'asds', 'entities': [], 'caption_entities': [], 'photo': [], 'new_chat_members': [], 'new_chat_photo': [], 'delete_chat_photo': False, 'group_chat_created': False, 'supergroup_chat_created': False, 'channel_chat_created': False, 'from': {'id': 464137258, 'first_name': 'Никита', 'is_bot': False, 'last_name': 'Кузнецов', 'username': 'Gesterezi', 'language_code': 'ru'}}
+None
+None
+None
+{'message_id': 1128, 'date': 1612533261, 'chat': {'id': 464137258, 'type': 'private', 'username': 'Gesterezi', 'first_name': 'Никита', 'last_name': 'Кузнецов'}, 'text': 'asdasda', 'entities': [], 'caption_entities': [], 'photo': [], 'new_chat_members': [], 'new_chat_photo': [], 'delete_chat_photo': False, 'group_chat_created': False, 'supergroup_chat_created': False, 'channel_chat_created': False, 'from': {'id': 464137258, 'first_name': 'Никита', 'is_bot': False, 'last_name': 'Кузнецов', 'username': 'Gesterezi', 'language_code': 'ru'}}
+None
+None
+None
+{'message_id': 1132, 'date': 1612533279, 'chat': {'id': 464137258, 'type': 'private', 'username': 'Gesterezi', 'first_name': 'Никита', 'last_name': 'Кузнецов'}, 'text': '/start', 'entities': [{'type': 'bot_command', 'offset': 0, 'length': 6}], 'caption_entities': [], 'photo': [], 'new_chat_members': [], 'new_chat_photo': [], 'delete_chat_photo': False, 'group_chat_created': False, 'supergroup_chat_created': False, 'channel_chat_created': False, 'from': {'id': 464137258, 'first_name': 'Никита', 'is_bot': False, 'last_name': 'Кузнецов', 'username': 'Gesterezi', 'language_code': 'ru'}}
+{'message_id': 1136, 'date': 1612533472, 'chat': {'id': 464137258, 'type': 'private', 'username': 'Gesterezi', 'first_name': 'Никита', 'last_name': 'Кузнецов'}, 'text': 'dfsd', 'entities': [], 'caption_entities': [], 'photo': [], 'new_chat_members': [], 'new_chat_photo': [], 'delete_chat_photo': False, 'group_chat_created': False, 'supergroup_chat_created': False, 'channel_chat_created': False, 'from': {'id': 464137258, 'first_name': 'Никита', 'is_bot': False, 'last_name': 'Кузнецов', 'username': 'Gesterezi', 'language_code': 'ru'}}
+None
+None

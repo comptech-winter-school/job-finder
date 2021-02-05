@@ -37,17 +37,17 @@ def start(update, context):
 
 def get_k_items(update, context):
     text_resume = update.message.text
-    text_jobs = get_answer(text_resume)
+    text_jobs, date_jobs = get_answer(text_resume)
     cut_text_jobs = ['\n'.join(elem.split('\n')[:6]) for elem in text_jobs]
     context.bot_data['user_id'] = update.message.chat_id
     for full_job, cut_job, button in zip(text_jobs, cut_text_jobs, buttons):
         update.message.reply_text(cut_job, reply_markup=InlineKeyboardMarkup(button))
-        context.bot_data[button[0][0].callback_data] = full_job
+        context.user_data[button[0][0].callback_data] = full_job
     logger.debug(update.message)
 
 
 def get_full_job_text(update, context):
     query = update.callback_query
     query.answer()
-    query.edit_message_text(text=context.bot_data[str(query.data)])
+    query.edit_message_text(text=context.user_data[str(query.data)])
     logger.debug(update.message)
