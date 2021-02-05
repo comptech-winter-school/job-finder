@@ -1,5 +1,5 @@
 from models.base_models import Embedder, Index, TextDao
-from models.Embedder import preproc
+from models.Embedder import clean_contact
 import pandas as pd
 import os
 
@@ -18,8 +18,10 @@ class DAO(TextDao):
         self.embedder = MyEmbedder()
         self.indexer = MyIndexer(self.embedder)
         if os.path.exists(path_jobs) :
-            self.df = pd.read_csv(path_jobs, usecols = ['text'])
+            self.df = pd.read_csv(path_jobs, usecols = ['text', 'ts'])
             self.df = self.df[self.df['text'].notna()]
+            self.df['date'] = pd.to_datetime(self.df['ts'], unit='s')
+            self.df.drop(columns='ts', inplace=True)
         else:
             print(f"Can't open {path_jobs}")
             
@@ -32,4 +34,6 @@ class DAO(TextDao):
             
     def get_top_k(self, text: str, k=3):
         inds = self.indexer.get_nearest_k(text, k=3)
-        return self.df.loc[inds, 'text']
+        result = self.df.loc[inds, ['text', 'date']].sort_values(by='date')
+        result['text'] = result['text'].apply(clean_contact)
+        return result

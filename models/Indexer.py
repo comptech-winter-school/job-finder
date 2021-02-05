@@ -1,6 +1,6 @@
 from models.base_models import Embedder, Index
 import numpy as np
-import faiss
+#import faiss
 from sklearn.metrics import pairwise_distances
 
 
@@ -73,7 +73,7 @@ class FaissIndexer(Index):
             return indexs
 
     def save(self, file_path: str):
-        if file_path[-8:] != '.indexer':
+        if not file_path.endswith('.indexer'):
             file_path += '.indexer'
         try:
             faiss.write_index(self.indexer, file_path)
@@ -83,7 +83,7 @@ class FaissIndexer(Index):
             print("Unexpected error")
 
     def load(self, file_path: str):
-        if file_path[-8:] != '.indexer':
+        if not file_path.endswith('.indexer'):
             file_path += '.indexer'
         try:
             self.indexer = faiss.read_index(file_path)

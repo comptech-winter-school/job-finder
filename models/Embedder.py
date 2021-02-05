@@ -11,6 +11,14 @@ nltk.download("stopwords")
 from nltk.corpus import stopwords
 stoplist = stopwords.words("russian")
 
+def clean_contact(text: str):
+    pattern_contact = r'\S*@\S+'
+    pattern_phone = r'(?:\d{9,11})?(?:\d *\(*\d{3}\)* *\d{3} *\d{2} *\d{2})?(?:\d\-*\d{3}\-*\d{3}\-*\d{2}\-*\d{2})?'
+    clean_text = text.replace('*','')
+    clean_text = re.sub(pattern_contact, r'', clean_text)
+    clean_text = re.sub(pattern_phone, r'', clean_text)
+    return clean_text
+    
 def preproc(text: str):
     """
         Удаление юникодов типа \xa0 - неразрывный пробел
@@ -52,7 +60,7 @@ class TfidfEmbedder(Embedder):
         return self.vectorizer.transform([preproc(text) for text in texts])
 
     def save(self, output_path: str):
-        if output_path[-9:] != '.embedder':
+        if not output_path.endswith('.embedder'):
             output_path += '.embedder'
         try:
             pickle.dump(self.vectorizer , open(output_path, "wb"))
@@ -62,7 +70,7 @@ class TfidfEmbedder(Embedder):
             print("Unexpected error")
 
     def load(self, input_path: str):
-        if output_path[-9:] != '.embedder':
+        if not output_path.endswith('.embedder'):
             output_path += '.embedder'
         try:
             self.vectorizer = pickle.load(open(input_path, "rb"))
