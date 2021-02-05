@@ -1,12 +1,25 @@
 from abc import ABC, abstractmethod
 
 
-class Embedder(ABC):
-    @abstractmethod
-    def embedding(self, text: str):
+class Embedder(ABC): 
+    @abstractmethod 
+    def embedding(self, text: str): 
+        pass 
+
+    @abstractmethod     
+    def transform(self, texts: list):
         pass
 
-    def transform(self, texts: list):
+    @abstractmethod    
+    def fit(self, texts):
+        pass
+
+    @abstractmethod
+    def save(self, output_path: str):
+        pass
+
+    @abstractmethod
+    def load(self, input_path: str):
         pass
 
 
@@ -36,5 +49,5 @@ class Validator(ABC):
 
 class TextDao(ABC):
     @abstractmethod
-    def get_texts_by_inds(self, inds: list):
+    def get_top_k(self, text: str, k):
         pass
