@@ -22,3 +22,12 @@ None
 {'message_id': 1136, 'date': 1612533472, 'chat': {'id': 464137258, 'type': 'private', 'username': 'Gesterezi', 'first_name': 'Никита', 'last_name': 'Кузнецов'}, 'text': 'dfsd', 'entities': [], 'caption_entities': [], 'photo': [], 'new_chat_members': [], 'new_chat_photo': [], 'delete_chat_photo': False, 'group_chat_created': False, 'supergroup_chat_created': False, 'channel_chat_created': False, 'from': {'id': 464137258, 'first_name': 'Никита', 'is_bot': False, 'last_name': 'Кузнецов', 'username': 'Gesterezi', 'language_code': 'ru'}}
 None
 None
+{'message_id': 1140, 'date': 1612534315, 'chat': {'id': 464137258, 'type': 'private', 'username': 'Gesterezi', 'first_name': 'Никита', 'last_name': 'Кузнецов'}, 'text': 'Твоыов', 'entities': [], 'caption_entities': [], 'photo': [], 'new_chat_members': [], 'new_chat_photo': [], 'delete_chat_photo': False, 'group_chat_created': False, 'supergroup_chat_created': False, 'channel_chat_created': False, 'from': {'id': 464137258, 'first_name': 'Никита', 'is_bot': False, 'last_name': 'Кузнецов', 'username': 'Gesterezi', 'language_code': 'ru'}}
+{'message_id': 1144, 'date': 1612534347, 'chat': {'id': 464137258, 'type': 'private', 'username': 'Gesterezi', 'first_name': 'Никита', 'last_name': 'Кузнецов'}, 'text': 'Куку', 'entities': [], 'caption_entities': [], 'photo': [], 'new_chat_members': [], 'new_chat_photo': [], 'delete_chat_photo': False, 'group_chat_created': False, 'supergroup_chat_created': False, 'channel_chat_created': False, 'from': {'id': 464137258, 'first_name': 'Никита', 'is_bot': False, 'last_name': 'Кузнецов', 'username': 'Gesterezi', 'language_code': 'ru'}}
+{'message_id': 1155, 'date': 1612534730, 'chat': {'id': 464137258, 'type': 'private', 'username': 'Gesterezi', 'first_name': 'Никита', 'last_name': 'Кузнецов'}, 'text': 'rerer', 'entities': [], 'caption_entities': [], 'photo': [], 'new_chat_members': [], 'new_chat_photo': [], 'delete_chat_photo': False, 'group_chat_created': False, 'supergroup_chat_created': False, 'channel_chat_created': False, 'from': {'id': 464137258, 'first_name': 'Никита', 'is_bot': False, 'last_name': 'Кузнецов', 'username': 'Gesterezi', 'language_code': 'ru'}}
+None
+None
+None
+None
+None
+None

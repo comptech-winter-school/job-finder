@@ -1,10 +1,8 @@
 import logging
 import sys
-import time
-from telegram import ReplyKeyboardMarkup, KeyboardButton
 from api.model_controller import get_answer
-from api.inline_buttons import buttons
 from telegram import InlineKeyboardMarkup
+from telegram import InlineKeyboardButton
 
 logger = logging.getLogger('BOT')
 
@@ -14,13 +12,15 @@ fh = logging.FileHandler('BOX.log')
 fh.setLevel(logging.DEBUG)
 logger.addHandler(fh)
 
+JOBS_QUANTITY = 10
+
 
 # start -> make_decision -> enter_the_text -> indexing
 
 def start(update, context):
-    hello = context.bot.sendMessage(chat_id=update.message.chat_id,
-                                    text='Здравствуйте!\n'
-                                         'Введите текст :)')
+    context.bot.sendMessage(chat_id=update.message.chat_id,
+                            text='Здравствуйте!\n'
+                                 'Введите текст :)')
     logger.debug(update.message)
 
 
@@ -37,9 +37,10 @@ def start(update, context):
 
 def get_k_items(update, context):
     text_resume = update.message.text
-    text_jobs, date_jobs = get_answer(text_resume)
+    text_jobs, date_jobs = get_answer(text_resume, JOBS_QUANTITY)
+    buttons = [[[InlineKeyboardButton('Подробнее', callback_data=f's{i}')]] for i in range(JOBS_QUANTITY)] #create button 'Подробнее' for each job
     cut_text_jobs = ['\n'.join(elem.split('\n')[:6]) for elem in text_jobs]
-    context.bot_data['user_id'] = update.message.chat_id
+    context.user_data['user_id'] = update.message.chat_id
     for full_job, cut_job, button in zip(text_jobs, cut_text_jobs, buttons):
         update.message.reply_text(cut_job, reply_markup=InlineKeyboardMarkup(button))
         context.user_data[button[0][0].callback_data] = full_job
