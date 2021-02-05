@@ -40,14 +40,12 @@ class FaissIndexer(Index):
     def __init__(self, embedder: Embedder, metric='cosine'):
         self.embedder = embedder
         self.metric = metric
-        #self.texts = None
         self.indexer = None
 
     def build(self, texts: list):
         """
             shoud normalize for cosine similarity
         """
-        #self.texts = texts
         embs = self.embedder.transform(texts).astype('float32')
         features_dim = embs.shape[1]
         if self.metric == 'cosine':
@@ -70,12 +68,13 @@ class FaissIndexer(Index):
         distances, indexs = self.indexer.search(emb, k)
         indexs = indexs
         if isDistance:
-            return 1-distances, indexs
+            return 1 - distances, indexs
         else:
-            #return self.texts[index]
             return indexs
 
     def save(self, file_path: str):
+        if not file_path.endswith('.indexer'):
+            file_path += '.indexer'
         try:
             faiss.write_index(self.indexer, file_path)
         except IOError as e:
@@ -84,6 +83,8 @@ class FaissIndexer(Index):
             print("Unexpected error")
 
     def load(self, file_path: str):
+        if not file_path.endswith('.indexer'):
+            file_path += '.indexer'
         try:
             self.indexer = faiss.read_index(file_path)
         except IOError as e:
