@@ -1,23 +1,27 @@
 from models.base_models import Embedder
 from sklearn.feature_extraction.text import TfidfVectorizer
-from nltk.corpus import stopwords
 import pickle
-import numpy as np
 import nltk
 import re
 import unicodedata
+from sentence_transformers import SentenceTransformer
+import torch
 
 nltk.download("stopwords")
 from nltk.corpus import stopwords
+
 stoplist = stopwords.words("russian")
+
 
 def clean_contact(text: str):
     pattern_contact = r'\S*@\S+'
     pattern_phone = r'(?:\d{9,11})?(?:\d *\(*\d{3}\)* *\d{3} *\d{2} *\d{2})?(?:\d\-*\d{3}\-*\d{3}\-*\d{2}\-*\d{2})?'
-    clean_text = text.replace('*','')
+    clean_text = text.replace('*', '')
     clean_text = re.sub(pattern_contact, r'', clean_text)
+
     clean_text = re.sub(pattern_phone, r'', clean_text)
     return clean_text
+
 
 def preproc(text: str):
     """
@@ -46,8 +50,8 @@ def preproc(text: str):
 class TfidfEmbedder(Embedder):
     def __init__(self, max_features: int = 10000):
         self.vectorizer = TfidfVectorizer(max_features=max_features,
-                                    lowercase=True,
-                                    stop_words=stoplist)
+                                          lowercase=True,
+                                          stop_words=stoplist)
 
     def embedding(self, text: str):
         text = preproc(text)
@@ -63,15 +67,15 @@ class TfidfEmbedder(Embedder):
         if not output_path.endswith('.embedder'):
             output_path += '.embedder'
         try:
-            pickle.dump(self.vectorizer , open(output_path, "wb"))
+            pickle.dump(self.vectorizer, open(output_path, "wb"))
         except IOError as e:
             print("I/O error({0}): {1}".format(e.errno, e.strerror))
         except:
             print("Unexpected error")
 
     def load(self, input_path: str):
-        if not output_path.endswith('.embedder'):
-            output_path += '.embedder'
+        if not input_path.endswith('.embedder'):
+            input_path += '.embedder'
         try:
             self.vectorizer = pickle.load(open(input_path, "rb"))
         except IOError as e:
@@ -82,20 +86,22 @@ class TfidfEmbedder(Embedder):
 
 class SBERTembedder(Embedder):
     def __init__(self):
-      self.sbert = SentenceTransformer('paraphrase-distilroberta-base-v1')
+        self.sbert = SentenceTransformer('paraphrase-distilroberta-base-v1')
 
     def embedding(self, texts: str):
-      return self.sbert.encode([preproc(text) for text in texts])
+        return self.sbert.encode([preproc(text) for text in texts])
 
     def transform(self, texts: list):
-      return [self.embedding(x) for x in texts]
+        return [self.embedding(x) for x in texts]
 
     def fit(self, texts):
-      pass
+        pass
 
     def save(self, output_path: str):
-      torch.save(self.sbert.state_dict(), output_path)
+        torch.save(self.sbert.state_dict(), output_path)
 
     def load(self, input_path: str):
-      self.sbert= sbert.load_state_dict(torch.load(input_path))
-      self.sbert.eval()
+        self.sbert = self.sbert.load_state_dict(torch.load(input_path))
+        # todo check it
+        # self.sbert.load_state_dict(torch.load(input_path))
+        self.sbert.eval()

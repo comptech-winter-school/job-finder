@@ -1,11 +1,12 @@
-from models.base_models import Embedder, Index
-import numpy as np
 import faiss
+import numpy as np
 from sklearn.metrics import pairwise_distances
+
+from models.base_models import Embedder, Index
 
 
 class BaselineIndexer(Index):
-    def __init__(self, embedder: Embedder, metric = 'cosine'):
+    def __init__(self, embedder: Embedder, metric='cosine'):
         """
           metric: as in sklearn.metrics
         """
@@ -37,6 +38,7 @@ class FaissIndexer(Index):
       Faiss uses only 32-bit floating point matrices (unsupport sparse)
       metric: cosine or L2
     """
+
     def __init__(self, embedder: Embedder, metric='cosine'):
         self.embedder = embedder
         self.metric = metric
@@ -79,7 +81,7 @@ class FaissIndexer(Index):
             faiss.write_index(self.indexer, file_path)
         except IOError as e:
             print("I/O error({0}): {1}".format(e.errno, e.strerror))
-        except: 
+        except:
             print("Unexpected error")
 
     def load(self, file_path: str):
@@ -89,6 +91,5 @@ class FaissIndexer(Index):
             self.indexer = faiss.read_index(file_path)
         except IOError as e:
             print("I/O error({0}): {1}".format(e.errno, e.strerror))
-        except: 
+        except:
             print("Unexpected error")
-            
