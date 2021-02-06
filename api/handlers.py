@@ -4,6 +4,8 @@ from api.model_controller import get_answer
 from telegram import InlineKeyboardMarkup
 from telegram import InlineKeyboardButton
 from datetime import datetime
+from scripts.text_utils import get_text_from_file
+
 
 logger = logging.getLogger('BOT')
 
@@ -37,7 +39,13 @@ def start(update, context):
 
 
 def get_k_items(update, context):
-    text_resume = update.message.text
+    if update.message.attachments:
+        file= update.message.attachments[0]
+        resume_path= f'data/output/bot_resumes/{file.filename}'
+        file.save_to_dir(resume_path)
+        text_resume = get_text_from_file(resume_path)
+    else:   
+        text_resume = update.message.text
     text_jobs, date_jobs = get_answer(text_resume, JOBS_QUANTITY)
     buttons = [[[InlineKeyboardButton('Подробнее', callback_data=f's{i}')]] for i in
                range(JOBS_QUANTITY)]  # create button 'Подробнее' for each job
