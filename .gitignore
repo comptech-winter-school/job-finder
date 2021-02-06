@@ -9,3 +9,4 @@ ods_jobs.csv
 *.ipynb_checkpoints
 venv
 BOX.log
+resumes

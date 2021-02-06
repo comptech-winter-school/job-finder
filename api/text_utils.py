@@ -9,8 +9,10 @@ def get_text_from_file(file_path):
             for p in pdf.pages:
                 p_text = p.extract_text()
                 text += '\n' + p_text
-            print(text)
+        return text
     elif file_path.endswith('docx'):
         docx = Document(file_path)
+        text = ''
         for para in docx.paragraphs:
-            print(para.text)
+            text += para.text
+        return text
