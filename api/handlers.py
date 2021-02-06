@@ -54,10 +54,11 @@ def get_k_items(update, context):
     cut_text_jobs = ['\n'.join(elem.split('\n')[:6]) for elem in text_jobs]
     context.user_data['user_id'] = update.message.chat_id
     for full_job, cut_job, button, date in zip(text_jobs, cut_text_jobs, buttons, date_jobs):
-            update.message.reply_text(
-                '\n' + f'{datetime.utcfromtimestamp(float(date)).strftime("%Y-%m-%d")}' + '\n' + f'{cut_job}',
-                reply_markup=InlineKeyboardMarkup(button))
-            context.user_data[button[0][0].callback_data] = full_job
+        update.message.reply_text(
+            '\n' + f'{date.date()}' + '\n' + f'{cut_job}',
+            reply_markup=InlineKeyboardMarkup(button))
+        context.user_data[button[0][0].callback_data] = full_job
+
     logger.debug(update.message)
 
 
