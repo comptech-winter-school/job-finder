@@ -19,4 +19,5 @@ model = DAO(TfidfEmbedder, BaselineIndexer, os.getcwd() + '/ods_jobs.csv')
 
 
 def get_answer(text: str, k: int = 3):
+    print(k)
     return model.get_top_k(text, k)

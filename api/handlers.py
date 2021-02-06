@@ -16,15 +16,15 @@ fh = logging.FileHandler('BOX.log')
 fh.setLevel(logging.DEBUG)
 logger.addHandler(fh)
 
-JOBS_QUANTITY = 5
+JOBS_QUANTITY = 3
 
 
 # start -> make_decision -> enter_the_text -> indexing
 
-def start(update, context):
+def start_and_info(update, context):
     context.bot.sendMessage(chat_id=update.message.chat_id,
                             text='Здравствуйте!\n'
-                                 'Введите текст :)')
+                                 'Введите текст Вашего резюме или загрузите резюме в формате pdf или docx.')
     logger.debug(update.message)
 
 
@@ -37,7 +37,6 @@ def start(update, context):
 #     keyboard = ReplyKeyboardMarkup([[KeyboardButton(text='Вакансия'), KeyboardButton(text='Резюме')]],
 #                                    resize_keyboard=True)
 #     context.bot.sendMessage(chat_id=update.message.chat_id, reply_markup=keyboard, text='Ваш выбор?')
-
 
 def get_k_items(update, context):
     if update.message.document:

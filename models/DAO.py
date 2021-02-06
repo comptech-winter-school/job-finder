@@ -35,7 +35,7 @@ class DAO(TextDao):
             self.indexer.load(path_model + '.indexer')
 
     def get_top_k(self, text: str, k=3):
-        inds = self.indexer.get_nearest_k(text, k=3)
-        result = self.df.loc[inds, ['text', 'date']].sort_values(by='date')
+        inds = self.indexer.get_nearest_k(text, k)
+        result = self.df.loc[inds, ['text', 'date']].sort_values(by='date', ascending=True)
         result['text'] = result['text'].apply(clean_contact)
         return result['text'].values.tolist(), result['date'].tolist()
